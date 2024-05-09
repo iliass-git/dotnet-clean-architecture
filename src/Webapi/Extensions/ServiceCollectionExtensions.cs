@@ -1,11 +1,16 @@
 namespace DemoWebApi.Clean.Architecture.WebApi.Extensions;
-using DemoWebApi.Clean.Architecture.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using DemoWebApi.Clean.Architecture.Application.Mappers;
+using DemoWebApi.Clean.Architecture.Application.Interfaces;
+using DemoWebApi.Clean.Architecture.Infrastructure.Repositories;
 using AutoMapper;
+using MediatR;
+using System.Reflection;
+
+
 public static class ServiceCollectionExtensions
 {
-    public static void RegisterAppService(this IServiceCollection services)
+    public static IServiceCollection  RegisterDependencies(this IServiceCollection services)
     {
         
         services.AddCosmosRepository(
@@ -16,7 +21,13 @@ public static class ServiceCollectionExtensions
                 options.DatabaseId = "samples";
             });
         services.AddAutoMapper(typeof(ProductMapper), typeof(ProductCategoryMapper));
-        //services.AddScoped<ITestManager, TestManager>();
-        //services.AddScoped<ITestService, TestService>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+   
+       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
+        }
+        return services;
     }
 }

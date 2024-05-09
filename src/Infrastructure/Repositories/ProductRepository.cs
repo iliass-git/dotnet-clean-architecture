@@ -1,9 +1,10 @@
 namespace DemoWebApi.Clean.Architecture.Infrastructure.Repositories;
+using DemoWebApi.Clean.Architecture.Application.Interfaces;
 using Microsoft.Azure.CosmosRepository;
 using Microsoft.Azure.Cosmos;
 using DemoWebApi.Clean.Architecture.Domain.Entities;
 
-public class ProductRepository
+public class ProductRepository: IProductRepository
 {
     private readonly IRepository<ProductEntity> _cosmosRepository;
 
