@@ -9,6 +9,10 @@ This is a web API based on .NET 8 that utilizes the Minimal API and CQRS pattern
 - Implements CQRS pattern using the MediatR library.
 - Stores and retrieves data from an Azure Cosmos DB using a repository pattern.
 
+## Upcoming Features
+
+- Authentication and Authorization using Bearer token
+
 ## Prerequisites
 
 Before running the API locally, make sure you have the following:
