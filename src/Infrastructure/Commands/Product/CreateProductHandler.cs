@@ -10,11 +10,32 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, Produc
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
-    public Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+
+    public CreateProductHandler(IProductRepository productRepository, IMapper mapper)
     {
-        Console.WriteLine("CreateProductHandler.Handle called");
-        var productEntity = _mapper.Map<ProductEntity>(request);
-        var newProduct =  _productRepository.AddAsync(productEntity);
-        return null;
+        _productRepository = productRepository;
+        _mapper = mapper;
+    }
+    public async Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    {
+
+        var product = new Product
+        {
+            
+            Name = request.Name,
+            Description = request.Description,
+            ProductCategories = request.ProductCategories
+        };
+
+        var productEntity = _mapper.Map<ProductEntity>(product);
+        try
+        {
+            var result = await  _productRepository.AddAsync(productEntity);
+            return _mapper.Map<Product>(result);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

@@ -12,18 +12,18 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection  RegisterDependencies(this IServiceCollection services)
     {
-        
+        using var serviceProvider = services.BuildServiceProvider();
+        var _configuration = serviceProvider.GetService<IConfiguration>();
+    
         services.AddCosmosRepository(
             options =>
             {
-                options.CosmosConnectionString = "< connection string >";
-                options.ContainerId = "data-store";
-                options.DatabaseId = "samples";
+                options.CosmosConnectionString = _configuration.GetValue<string>("Database:CosmosDB:ConnectionString");
+                options.ContainerId = _configuration.GetValue<string>("Database:CosmosDB:ContainerId");
+                options.DatabaseId = _configuration.GetValue<string>("Database:CosmosDB:DatabaseId");
             });
         services.AddAutoMapper(typeof(ProductMapper), typeof(ProductCategoryMapper));
         services.AddScoped<IProductRepository, ProductRepository>();
-   
-       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
