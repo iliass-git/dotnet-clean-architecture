@@ -20,6 +20,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+app.MapProductEndpoints();
 app.Run();
 
 
