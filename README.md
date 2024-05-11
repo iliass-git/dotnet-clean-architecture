@@ -1,4 +1,4 @@
-# DemoWebApi using Clean Architecture
+# Demo WebApi using Clean Architecture
 
 This is a web API based on .NET 8 that utilizes the Minimal API and CQRS pattern using the MediatR library. The project demonstrates the use of clean architecture to organize the code and decoupling by separating concerns into distinct layers.
 
