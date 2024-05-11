@@ -4,7 +4,7 @@ This is a web API based on .NET 8 that utilizes the Minimal API and CQRS pattern
 
 ## Features
 
-- Implements a clean architecture to organize the code and decoupling by separating concerns into distinct layers.
+- Implements a clean architecture.
 - Utilizes a web API based on .NET 8 and the Minimal API approach.
 - Implements CQRS pattern using the MediatR library.
 - Stores and retrieves data from an Azure Cosmos DB using a repository pattern.
