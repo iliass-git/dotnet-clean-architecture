@@ -8,7 +8,7 @@ public class ProductMapper: Profile
     public ProductMapper()
     {
         CreateMap<ProductEntity, Product>()
-            .ForMember(dest => dest.ProductCategories, opt => opt.MapFrom(src => src.ProductCategories));
+            .ForMember(dest => dest.ProductCategories, opt => opt.MapFrom(src => src.ProductCategories));        
         CreateMap<Product, ProductEntity>()
             .ForMember(dest => dest.ProductCategories, opt => opt.MapFrom(src => src.ProductCategories));
     }

@@ -12,12 +12,12 @@ public class ProductRepository: IProductRepository
     {
         _cosmosRepository = cosmosRepository;
     }
-/*
-    public async Task<List<ProductEntity>> GetAllAsync()
+
+    public async Task<IEnumerable<ProductEntity>> GetAllAsync()
     {
-        return await _cosmosRepository.GetAsync();
+        return await _cosmosRepository.GetAsync( x => x.id != Guid.Empty);
     }
-*/
+
     public async Task<ProductEntity> GetByIdAsync(Guid id)
     {
         return await _cosmosRepository.GetAsync(id.ToString());
